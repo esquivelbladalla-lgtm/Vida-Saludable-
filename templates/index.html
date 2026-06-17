@@ -1,101 +1,546 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vida Saludable</title>
+    <title>Vida Saludable Dashboard</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
 
-    <nav>
-        <h2>Vida Saludable</h2>
+    <div class="background-blur bg1"></div>
+    <div class="background-blur bg2"></div>
+    <div class="background-blur bg3"></div>
 
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#imc">IMC</a></li>
-            <li><a href="#agua">Agua</a></li>
-            <li><a href="#info">Información</a></li>
-        </ul>
-    </nav>
+    <main class="app-container">
 
-    <section id="inicio" class="hero">
+        <!-- HEADER -->
 
-        <div class="card">
-            <h1>Bienvenido a Vida Saludable</h1>
+        <header class="top-header">
+
+            <div class="logo-area">
+                <div class="logo-circle">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+
+                <div>
+                    <h1>Vida Saludable</h1>
+                    <span>Dashboard Personal</span>
+                </div>
+            </div>
+
+            <button class="theme-btn">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+        </header>
+
+        <!-- HEALTH SCORE -->
+
+        <section class="glass-card health-score-card">
+
+            <div class="score-header">
+
+                <h2>Health Score</h2>
+
+                <span class="score-badge">
+                    Activo
+                </span>
+
+            </div>
+
+            <div class="score-ring-container">
+
+                <div class="score-ring">
+
+                    <svg viewBox="0 0 220 220">
+
+                        <circle
+                            class="ring-background"
+                            cx="110"
+                            cy="110"
+                            r="85">
+                        </circle>
+
+                        <circle
+                            id="scoreProgress"
+                            class="ring-progress"
+                            cx="110"
+                            cy="110"
+                            r="85">
+                        </circle>
+
+                    </svg>
+
+                    <div class="score-center">
+
+                        <h1 id="healthScore">
+                            8.8
+                        </h1>
+
+                        <p>
+                            Tu puntuación de salud
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="health-icons">
+
+                <div class="mini-icon yellow">
+                    <i class="fa-solid fa-shield-heart"></i>
+                </div>
+
+                <div class="mini-icon green">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+
+                <div class="mini-icon pink">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="mini-icon blue">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+
+                <div class="mini-icon yellow">
+                    <i class="fa-solid fa-bicycle"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- QUICK STATS -->
+
+        <section class="stats-grid">
+
+            <div class="glass-card stat-card">
+
+                <div class="stat-icon imc">
+                    <i class="fa-solid fa-weight-scale"></i>
+                </div>
+
+                <h3>IMC</h3>
+
+                <span id="miniIMC">
+                    0.0
+                </span>
+
+            </div>
+
+            <div class="glass-card stat-card">
+
+                <div class="stat-icon water">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+
+                <h3>Agua</h3>
+
+                <span id="todayWater">
+                    0 ml
+                </span>
+
+            </div>
+
+            <div class="glass-card stat-card">
+
+                <div class="stat-icon streak">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+                <h3>Racha</h3>
+
+                <span id="streakCounter">
+                    0 días
+                </span>
+
+            </div>
+
+        </section>
+
+        <!-- BMI -->
+
+        <section class="glass-card bmi-section">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-weight-scale"></i>
+
+                <h2>
+                    Calculadora de IMC
+                </h2>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>
+                    Peso (kg)
+                </label>
+
+                <div class="range-wrapper">
+
+                    <input
+                        type="range"
+                        id="weightSlider"
+                        min="30"
+                        max="200"
+                        value="70">
+
+                    <input
+                        type="number"
+                        id="weightInput"
+                        value="70">
+
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>
+                    Altura (cm)
+                </label>
+
+                <div class="range-wrapper">
+
+                    <input
+                        type="range"
+                        id="heightSlider"
+                        min="120"
+                        max="220"
+                        value="170">
+
+                    <input
+                        type="number"
+                        id="heightInput"
+                        value="170">
+
+                </div>
+
+            </div>
+
+            <div class="bmi-result">
+
+                <h1 id="bmiValue">
+                    24.2
+                </h1>
+
+                <p id="bmiCategory">
+                    Normal
+                </p>
+
+            </div>
+
+            <div class="bmi-progress">
+
+                <div id="bmiBar" class="bmi-bar"></div>
+
+            </div>
+
+            <div class="advice-card">
+
+                <i class="fa-solid fa-lightbulb"></i>
+
+                <p id="bmiAdvice">
+
+                    Mantén hábitos saludables para conservar tu peso ideal.
+
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- WATER -->
+
+        <section class="glass-card water-section">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-droplet"></i>
+
+                <h2>
+                    Hidratación
+                </h2>
+
+            </div>
+
+            <div class="goal-area">
+
+                <label>
+                    Meta diaria (ml)
+                </label>
+
+                <input
+                    type="number"
+                    id="waterGoal"
+                    value="2000">
+
+            </div>
+
+            <!-- WATER VISUAL -->
+
+            <div class="water-visual">
+
+                <div class="water-container">
+
+                    <div
+                        id="waterFill"
+                        class="water-fill">
+
+                        <svg viewBox="0 0 560 20">
+
+                            <path
+                                d="M0 10
+                                C 50 0,
+                                100 20,
+                                150 10
+                                C 200 0,
+                                250 20,
+                                300 10
+                                C 350 0,
+                                400 20,
+                                450 10
+                                C 500 0,
+                                550 20,
+                                600 10
+                                V20 H0 Z">
+                            </path>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="water-info">
+
+                        <h2 id="waterPercentage">
+                            0%
+                        </h2>
+
+                        <p>
+                            Completado
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- QUICK BUTTONS -->
+
+            <div class="water-buttons">
+
+                <button id="glassBtn">
+
+                    <i class="fa-solid fa-glass-water"></i>
+
+                    +250ml
+
+                </button>
+
+                <button id="bottleBtn">
+
+                    <i class="fa-solid fa-bottle-water"></i>
+
+                    +500ml
+
+                </button>
+
+            </div>
+
+            <!-- CUSTOM -->
+
+            <div class="custom-water">
+
+                <input
+                    type="number"
+                    id="customWater"
+                    placeholder="Cantidad personalizada">
+
+                <button id="customAddBtn">
+
+                    Añadir
+
+                </button>
+
+            </div>
+
+            <div class="water-summary">
+
+                <h3>
+
+                    Total Consumido
+
+                </h3>
+
+                <h1 id="currentWater">
+
+                    0 ml
+
+                </h1>
+
+            </div>
+
+        </section>
+
+        <!-- ACHIEVEMENTS -->
+
+        <section class="glass-card">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-trophy"></i>
+
+                <h2>
+                    Logros
+                </h2>
+
+            </div>
+
+            <div class="achievements-grid">
+
+                <div
+                    id="achievementEarly"
+                    class="achievement">
+
+                    <i class="fa-solid fa-sun"></i>
+
+                    <span>
+                        Madrugador
+                    </span>
+
+                </div>
+
+                <div
+                    id="achievementHydration"
+                    class="achievement">
+
+                    <i class="fa-solid fa-droplet"></i>
+
+                    <span>
+                        Héroe de Hidratación
+                    </span>
+
+                </div>
+
+                <div
+                    id="achievementStreak"
+                    class="achievement">
+
+                    <i class="fa-solid fa-fire"></i>
+
+                    <span>
+                        Racha Activa
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- HISTORY -->
+
+        <section class="glass-card">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <h2>
+                    Historial
+                </h2>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Agua</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="historyTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- CHART -->
+
+        <section class="glass-card">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h2>
+                    Estadísticas
+                </h2>
+
+            </div>
+
+            <canvas id="waterChart"></canvas>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer>
 
             <p>
-                Cuida tu salud calculando tu IMC y monitoreando tu consumo diario de agua.
+                Vida Saludable Dashboard © 2026
             </p>
-        </div>
 
-    </section>
+            <p>
+                Flask + JavaScript + LocalStorage
+            </p>
 
-    <section id="imc">
+        </footer>
 
-        <div class="card">
+    </main>
 
-            <h2>Calculadora de IMC</h2>
-
-            <input type="number" id="peso" placeholder="Peso (kg)">
-
-            <input type="number" step="0.01" id="altura" placeholder="Altura (m)">
-
-            <button onclick="calcularIMC()">Calcular IMC</button>
-
-            <h3 id="resultadoIMC"></h3>
-
-        </div>
-
-    </section>
-
-    <section id="agua">
-
-        <div class="card">
-
-            <h2>Rastreador de Agua</h2>
-
-            <input type="number" id="metaAgua" placeholder="Meta diaria (litros)">
-
-            <h3>Vasos consumidos: <span id="contador">0</span></h3>
-
-            <button onclick="agregarAgua()">+1 Vaso</button>
-
-            <button onclick="reiniciar()">Reiniciar</button>
-
-            <p id="mensajeAgua"></p>
-
-        </div>
-
-    </section>
-
-    <section id="info">
-
-        <div class="card">
-
-            <h2>Consejos de Salud</h2>
-
-            <ul>
-                <li>Consume frutas y verduras diariamente.</li>
-                <li>Realiza actividad física regularmente.</li>
-                <li>Duerme entre 7 y 8 horas.</li>
-                <li>Mantente hidratado.</li>
-            </ul>
-
-        </div>
-
-    </section>
-
-    <footer>
-        <p>Vida Saludable © 2026</p>
-        <p>Proyecto Escolar desarrollado con Flask</p>
-    </footer>
+    <!-- JS -->
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 
 </html>
+```
+
