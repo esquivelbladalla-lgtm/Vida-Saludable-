@@ -1,4 +1,4 @@
-```javascript
+
 // ================================
 // VIDA SALUDABLE DASHBOARD
 // ================================
@@ -251,6 +251,7 @@ function calculateBMI() {
     }
 
     saveData();
+    updateStatistics();
 
 }
 
@@ -638,6 +639,27 @@ function updateChart() {
 
 }
 
+function updateStatistics(){
+
+    document.getElementById("statBMI").textContent =
+        bmiValue.textContent;
+
+    document.getElementById("statWater").textContent =
+        waterConsumed + " ml";
+
+    document.getElementById("statGoal").textContent =
+        waterGoal + " ml";
+
+    const progress =
+        Math.round(
+            (waterConsumed / waterGoal) * 100
+        );
+
+    document.getElementById("statProgress").textContent =
+        progress + "%";
+
+}
+
 // ==================================
 // INIT
 // ==================================
@@ -649,7 +671,7 @@ function init() {
     calculateBMI();
 
     updateWaterUI();
-
+    updateStatistics();
     updateHistory();
 
     updateChart();
@@ -672,5 +694,3 @@ setInterval(() => {
     updateHealthScore();
 
 }, 1000);
-```
-
