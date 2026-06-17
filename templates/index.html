@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida Saludable</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <h2>Vida Saludable</h2>
+
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#imc">IMC</a></li>
+            <li><a href="#agua">Agua</a></li>
+            <li><a href="#info">Información</a></li>
+        </ul>
+    </nav>
+
+    <section id="inicio" class="hero">
+
+        <div class="card">
+            <h1>Bienvenido a Vida Saludable</h1>
+
+            <p>
+                Cuida tu salud calculando tu IMC y monitoreando tu consumo diario de agua.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="imc">
+
+        <div class="card">
+
+            <h2>Calculadora de IMC</h2>
+
+            <input type="number" id="peso" placeholder="Peso (kg)">
+
+            <input type="number" step="0.01" id="altura" placeholder="Altura (m)">
+
+            <button onclick="calcularIMC()">Calcular IMC</button>
+
+            <h3 id="resultadoIMC"></h3>
+
+        </div>
+
+    </section>
+
+    <section id="agua">
+
+        <div class="card">
+
+            <h2>Rastreador de Agua</h2>
+
+            <input type="number" id="metaAgua" placeholder="Meta diaria (litros)">
+
+            <h3>Vasos consumidos: <span id="contador">0</span></h3>
+
+            <button onclick="agregarAgua()">+1 Vaso</button>
+
+            <button onclick="reiniciar()">Reiniciar</button>
+
+            <p id="mensajeAgua"></p>
+
+        </div>
+
+    </section>
+
+    <section id="info">
+
+        <div class="card">
+
+            <h2>Consejos de Salud</h2>
+
+            <ul>
+                <li>Consume frutas y verduras diariamente.</li>
+                <li>Realiza actividad física regularmente.</li>
+                <li>Duerme entre 7 y 8 horas.</li>
+                <li>Mantente hidratado.</li>
+            </ul>
+
+        </div>
+
+    </section>
+
+    <footer>
+        <p>Vida Saludable © 2026</p>
+        <p>Proyecto Escolar desarrollado con Flask</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
